@@ -7,7 +7,10 @@ public class PlayerControl : MonoBehaviour
 {
     private Rigidbody2D rg;
     public float jumpPow = 3;
+
+    //check if game over
     public bool isGameOver = false;
+
     // Start is called before the first frame update
     void Start()
     {
