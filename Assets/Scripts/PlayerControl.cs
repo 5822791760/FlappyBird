@@ -17,6 +17,11 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (transform.position.y <= -8.75f || transform.position.y >= 8.75)
+        {
+            isGameOver = true;
+        }
+
         if (isGameOver == true)
         {
             transform.rotation *= Quaternion.Euler(0, 0, -15);
