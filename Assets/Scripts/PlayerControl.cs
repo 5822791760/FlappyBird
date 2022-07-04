@@ -7,9 +7,10 @@ public class PlayerControl : MonoBehaviour
 {
     private Rigidbody2D rg;
     public float jumpPow = 3;
-
-    //check if game over
     public bool isGameOver = false;
+    public AudioSource jumpSound;
+    public AudioSource crashSound;
+    public AudioSource fallSound;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +36,7 @@ public class PlayerControl : MonoBehaviour
     {
         if (isGameOver == false)
         {
+            jumpSound.Play();
             rg.AddForce(Vector2.up * jumpPow, ForceMode2D.Impulse);
         }
     }
@@ -43,9 +45,11 @@ public class PlayerControl : MonoBehaviour
     {
         if (other.CompareTag("Obstacle") && isGameOver == false)
         {
+            crashSound.Play();
             isGameOver = true;
             rg.velocity = new Vector2(1, 10);
             rg.gravityScale = 5;
+            fallSound.Play();
         }
     }
 }
