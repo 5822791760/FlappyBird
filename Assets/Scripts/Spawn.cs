@@ -4,9 +4,17 @@ using UnityEngine;
 
 public class Spawn : MonoBehaviour
 {
-    public GameObject pipe;
+    //For Different file use
+
+    //For Editor
+    [SerializeField] private GameObject pipe;
+
+    //For in file Component
     private PlayerControl pScript;
-    // Start is called before the first frame update
+
+    //For in file variable
+
+
     void Start()
     {
         InvokeRepeating("Spawner", 1, 2.5f);

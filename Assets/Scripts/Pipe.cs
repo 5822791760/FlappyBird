@@ -4,8 +4,17 @@ using UnityEngine;
 
 public class Pipe : MonoBehaviour
 {
-    public float speed = 4;
+    //For Different file use
+
+
+    //For Editor
+    [SerializeField] private float speed = 4;
+
+    //For in file Component
     private PlayerControl pScript;
+
+    //For in file variable
+
 
     // Start is called before the first frame update
     void Start()

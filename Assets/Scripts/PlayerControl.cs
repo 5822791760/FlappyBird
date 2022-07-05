@@ -2,20 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class PlayerControl : MonoBehaviour
 {
-    private Rigidbody2D rg;
-    public float jumpPow = 3;
+    //For Different file use
     public bool isGameOver = false;
-    public AudioSource jumpSound;
-    public AudioSource crashSound;
-    public AudioSource fallSound;
+    public int score = 0;
+
+    //For Editor
+    [SerializeField] private float jumpPow = 3;
+    [SerializeField] private AudioSource jumpSound;
+    [SerializeField] private AudioSource crashSound;
+    [SerializeField] private AudioSource fallSound;
+    [SerializeField] private AudioSource scoreSound;
+
+    //For Infile Component
+    private Rigidbody2D rg;
+    private TextMeshProUGUI text;
+
+    //For Infile variable
 
     // Start is called before the first frame update
     void Start()
     {
         rg = GetComponent<Rigidbody2D>();
+        text = GameObject.Find("Scoreboard").GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
@@ -51,5 +63,13 @@ public class PlayerControl : MonoBehaviour
             rg.gravityScale = 5;
             fallSound.Play();
         }
+
+        if (other.CompareTag("Score") && isGameOver == false)
+        {
+            score++;
+            text.SetText(score.ToString());
+            scoreSound.Play();
+        }
+
     }
 }
