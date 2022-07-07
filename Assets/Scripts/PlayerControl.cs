@@ -11,7 +11,6 @@ public class PlayerControl : MonoBehaviour
     public int score = 0;
 
     //For Editor
-    [SerializeField] private float jumpPow = 3;
     [SerializeField] private AudioSource jumpSound;
     [SerializeField] private AudioSource crashSound;
     [SerializeField] private AudioSource fallSound;
@@ -22,6 +21,8 @@ public class PlayerControl : MonoBehaviour
     private TextMeshProUGUI text;
 
     //For Infile variable
+    private float jumpPow = 45;
+
 
     // Start is called before the first frame update
     void Start()
@@ -44,12 +45,15 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
-    public void Jump()
+    public void Jump(InputAction.CallbackContext context)
     {
-        if (isGameOver == false)
+        if (context.performed)
         {
-            jumpSound.Play();
-            rg.AddForce(Vector2.up * jumpPow, ForceMode2D.Impulse);
+            if (isGameOver == false)
+            {
+                jumpSound.Play();
+                rg.AddForce(Vector2.up * jumpPow, ForceMode2D.Impulse);
+            }
         }
     }
 
