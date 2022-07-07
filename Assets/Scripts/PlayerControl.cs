@@ -40,7 +40,7 @@ public class PlayerControl : MonoBehaviour
 
         transform.Rotate(new Vector3(0, 0, -5) * Time.deltaTime * 8, Space.Self);
 
-        if (transform.position.y <= -8.75f || transform.position.y >= 8.75)
+        if ((transform.position.y <= -8.75f || transform.position.y >= 8.75))
         {
             isGameOver = true;
         }
@@ -72,7 +72,6 @@ public class PlayerControl : MonoBehaviour
             isGameOver = true;
             rg.velocity = new Vector2(1, 10);
             rg.gravityScale = 5;
-            fallSound.Play();
         }
 
         if (other.CompareTag("Score") && isGameOver == false)
@@ -85,6 +84,11 @@ public class PlayerControl : MonoBehaviour
                 PlayerPrefs.SetInt("Highscore", score);
                 Htext.SetText("High Score: " + score.ToString());
             }
+        }
+
+        if (other.CompareTag("Out"))
+        {
+            fallSound.Play();
         }
 
     }
