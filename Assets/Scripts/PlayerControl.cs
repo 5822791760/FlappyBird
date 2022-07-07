@@ -19,6 +19,7 @@ public class PlayerControl : MonoBehaviour
     //For Infile Component
     private Rigidbody2D rg;
     private TextMeshProUGUI text;
+    private TextMeshProUGUI Htext;
 
     //For Infile variable
     private float jumpPow = 45;
@@ -29,11 +30,16 @@ public class PlayerControl : MonoBehaviour
     {
         rg = GetComponent<Rigidbody2D>();
         text = GameObject.Find("Scoreboard").GetComponent<TextMeshProUGUI>();
+        Htext = GameObject.Find("HighScore").GetComponent<TextMeshProUGUI>();
+        Htext.SetText("High Score: " + PlayerPrefs.GetInt("Highscore", 0).ToString());
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        transform.Rotate(new Vector3(0, 0, -5) * Time.deltaTime * 8, Space.Self);
+
         if (transform.position.y <= -8.75f || transform.position.y >= 8.75)
         {
             isGameOver = true;
@@ -53,6 +59,7 @@ public class PlayerControl : MonoBehaviour
             {
                 jumpSound.Play();
                 rg.AddForce(Vector2.up * jumpPow, ForceMode2D.Impulse);
+                transform.Rotate(new Vector3(0, 0, 25), Space.Self);
             }
         }
     }
@@ -73,6 +80,11 @@ public class PlayerControl : MonoBehaviour
             score++;
             text.SetText(score.ToString());
             scoreSound.Play();
+            if (score > PlayerPrefs.GetInt("Highscore"))
+            {
+                PlayerPrefs.SetInt("Highscore", score);
+                Htext.SetText("High Score: " + score.ToString());
+            }
         }
 
     }
